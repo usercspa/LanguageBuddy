@@ -1,13 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
+var config = {
+    apiKey: "API_KEY",
+    authDomain: "language-buddy-88fc7.firebaseapp.com",
+    databaseURL: "https://language-buddy-88fc7-default-rtdb.firebaseio.com/",
+    storageBucket: "language-buddy-88fc7.appspot.com",
+  };
+  firebase.initializeApp(config);
 
-import App from "./App";
+  // Get a reference to the database service
+  var database = firebase.database();
 
-const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "language-buddy-88fc7.firebaseapp.com",
-  projectId: "language-buddy-88fc7",
-  storageBucket: "language-buddy-88fc7.appspot.com",
-  messagingSenderId: "338553915691",
-  appId: "1:338553915691:web:91334fd9e27accf5bd9d6e"
-};
+// write data
+  function writeUserData(name, phone, language, interest) {
+  firebase.database().ref('users/' + userId).set({
+    name: name,
+    phone: phone,
+    language: language,
+    interest: interest
+    }, (error) => {
+  if (error) {
+    // The write failed...
+  } else {
+    // Data saved successfully!
+  }
+});
+
