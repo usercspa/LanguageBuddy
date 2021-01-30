@@ -1,4 +1,9 @@
-h1, p {
-  font-family: Lato;
+h2, h3, p {
+  font-family: cursive, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #eeeeee;
 }
 
+h1 {
+  font-family: cursive, Arial, Helvetica, sans-serif;
+  color: #FFFFFF;
+}
