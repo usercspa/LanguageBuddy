@@ -1,0 +1,295 @@
+{
+  "description": "LanguageBuddy",
+  "states": [
+    {
+      "name": "Trigger",
+      "type": "trigger",
+      "transitions": [
+        {
+          "event": "incomingMessage"
+        },
+        {
+          "next": "greeting",
+          "event": "incomingCall"
+        },
+        {
+          "event": "incomingRequest"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "name": "greeting",
+      "type": "gather-input-on-call",
+      "transitions": [
+        {
+          "next": "getName",
+          "event": "keypress"
+        },
+        {
+          "next": "getName",
+          "event": "speech"
+        },
+        {
+          "event": "timeout"
+        }
+      ],
+      "properties": {
+        "speech_timeout": "auto",
+        "offset": {
+          "x": 150,
+          "y": 200
+        },
+        "loop": 1,
+        "finish_on_key": "#",
+        "say": "Greetings from LanguageBuddy. Would you like to pair up with a language buddy? Press 1 to continue",
+        "stop_gather": true,
+        "gather_language": "en",
+        "profanity_filter": "true",
+        "timeout": 5
+      }
+    },
+    {
+      "name": "getName",
+      "type": "gather-input-on-call",
+      "transitions": [
+        {
+          "next": "sendName",
+          "event": "keypress"
+        },
+        {
+          "next": "sendName",
+          "event": "speech"
+        },
+        {
+          "event": "timeout"
+        }
+      ],
+      "properties": {
+        "speech_timeout": "auto",
+        "offset": {
+          "x": 160,
+          "y": 440
+        },
+        "loop": 1,
+        "finish_on_key": "#",
+        "say": "First things first ... What is your name?",
+        "stop_gather": true,
+        "gather_language": "en",
+        "profanity_filter": "true",
+        "timeout": 5
+      }
+    },
+    {
+      "name": "getNumber",
+      "type": "gather-input-on-call",
+      "transitions": [
+        {
+          "next": "sendNumber",
+          "event": "keypress"
+        },
+        {
+          "next": "sendNumber",
+          "event": "speech"
+        },
+        {
+          "event": "timeout"
+        }
+      ],
+      "properties": {
+        "speech_timeout": "auto",
+        "offset": {
+          "x": 150,
+          "y": 670
+        },
+        "loop": 1,
+        "finish_on_key": "#",
+        "say": "Great! Can you type your phone numner?",
+        "stop_gather": true,
+        "gather_language": "en",
+        "profanity_filter": "true",
+        "timeout": 5
+      }
+    },
+    {
+      "name": "sendName",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "getNumber",
+          "event": "success"
+        },
+        {
+          "next": "getNumber",
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -240,
+          "y": 540
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "url": "https://language-buddy-88fc7-default-rtdb.firebaseio.com/"
+      }
+    },
+    {
+      "name": "sendLanguage",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "getInterest",
+          "event": "success"
+        },
+        {
+          "next": "getInterest",
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -240,
+          "y": 1130
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "url": "https://language-buddy-88fc7-default-rtdb.firebaseio.com/"
+      }
+    },
+    {
+      "name": "sendNumber",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "getLanguage",
+          "event": "success"
+        },
+        {
+          "next": "getLanguage",
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -190,
+          "y": 810
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "url": "https://language-buddy-88fc7-default-rtdb.firebaseio.com/"
+      }
+    },
+    {
+      "name": "getLanguage",
+      "type": "gather-input-on-call",
+      "transitions": [
+        {
+          "next": "sendLanguage",
+          "event": "keypress"
+        },
+        {
+          "next": "sendLanguage",
+          "event": "speech"
+        },
+        {
+          "event": "timeout"
+        }
+      ],
+      "properties": {
+        "speech_timeout": "auto",
+        "offset": {
+          "x": 150,
+          "y": 940
+        },
+        "loop": 1,
+        "finish_on_key": "#",
+        "say": "Brillant. What languages are you good at?",
+        "stop_gather": true,
+        "gather_language": "en",
+        "profanity_filter": "true",
+        "timeout": 5
+      }
+    },
+    {
+      "name": "getInterest",
+      "type": "gather-input-on-call",
+      "transitions": [
+        {
+          "next": "sendInterest",
+          "event": "keypress"
+        },
+        {
+          "next": "sendInterest",
+          "event": "speech"
+        },
+        {
+          "event": "timeout"
+        }
+      ],
+      "properties": {
+        "speech_timeout": "auto",
+        "offset": {
+          "x": 150,
+          "y": 1260
+        },
+        "loop": 1,
+        "finish_on_key": "#",
+        "say": "One last question... What languages do you want to learn?",
+        "stop_gather": true,
+        "gather_language": "en",
+        "profanity_filter": "true",
+        "timeout": 5
+      }
+    },
+    {
+      "name": "sendInterest",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "Goodbye",
+          "event": "success"
+        },
+        {
+          "next": "Goodbye",
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -210,
+          "y": 1400
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "url": "https://language-buddy-88fc7-default-rtdb.firebaseio.com/"
+      }
+    },
+    {
+      "name": "Goodbye",
+      "type": "say-play",
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 150,
+          "y": 1560
+        },
+        "loop": 1,
+        "say": "Fantastic. You're all set! We will ping you once we pair you up with a language buddy. Goodbye!"
+      }
+    }
+  ],
+  "initial_state": "Trigger",
+  "flags": {
+    "allow_concurrent_calls": true
+  }
+}
