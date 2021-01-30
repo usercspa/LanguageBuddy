@@ -1,8 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
-
-import App from "./App";
-
 const firebaseConfig = {
   apiKey: "API_KEY",
   authDomain: "language-buddy-88fc7.firebaseapp.com",
