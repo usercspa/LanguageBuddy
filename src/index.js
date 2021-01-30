@@ -9,31 +9,18 @@ var config = {
   // Get a reference to the database service
   var database = firebase.database();
 
-
-exports.addMessage = functions.https.onCall((data, context) => {
-  // ...
+// write data
+  function writeUserData(name, phone, language, interest) {
+  firebase.database().ref('users/' + userId).set({
+    name: name,
+    phone: phone,
+    language: language,
+    interest: interest
+    }, (error) => {
+  if (error) {
+    // The write failed...
+  } else {
+    // Data saved successfully!
+  }
 });
-const text = data.text;
-const name = context.auth.token.name || null;
 
-var addMessage = firebase.functions().httpsCallable('addMessage');
-addMessage({ text: messageText })
-  .then((result) => {
-    // Read result of the Cloud Function.
-    var sanitizedMessage = result.data.text;
-  });
-
-//handling errors
-var addMessage = firebase.functions().httpsCallable('addMessage');
-addMessage({ text: messageText })
-  .then((result) => {
-    // Read result of the Cloud Function.
-    var sanitizedMessage = result.data.text;
-  })
-  .catch((error) => {
-    // Getting the Error details.
-    var code = error.code;
-    var message = error.message;
-    var details = error.details;
-    // ...
-  });
